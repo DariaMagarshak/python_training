@@ -15,9 +15,12 @@ class add_new(unittest.TestCase):
     def test_add_new(self):
         wd = self.wd
         self.open_home_page(wd)
-        self.login(wd)
+        self.login(wd, username="admin", password="secret")
         self.open_forms_page(wd)
-        self.create_contact(wd)
+        self.create_contact(wd, firstname="Иван", middlename="Васильевич", lastname="Котейкин", nickname="IVA_cat", company="Производство блинчиков corp",
+                            company_address="СПб, Лесная ул, 1", home_number="777-66-55", mobile_number="89218776342", work_number="3356721", fax_number="3356721", email="iva_cat@mail.ru",
+                            email2="kot_obormot@yandex.ru", email3="ivan_ivan@gmail.com", homepage="ivan.com", bday="12", bmonth="April", byear="1920", aday="12",
+                            amonth="April", ayear="1950", address2="СПб, Лесная ул, 2", homephone="2233444", notes="уточнить по поводу блинчиков")
         self.submit(wd)
         self.return_to_home_page(wd)
         self.logout(wd)
@@ -31,12 +34,9 @@ class add_new(unittest.TestCase):
     def submit(self, wd):
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
-    def create_contact(self, wd, firstname="Иван", middlename="Васильевич", lastname="Котейкин", nickname="IVA_cat",
-                       company="Производство блинчиков corp", company_address="СПб, Лесная ул, 1", home_number="777-66-55",
-                       mobile_number="89218776342", work_number="3356721", fax_number="3356721", email="iva_cat@mail.ru",
-                       email2="kot_obormot@yandex.ru", email3="ivan_ivan@gmail.com", homepage="ivan.com", bday="12",
-                       bmonth="April", byear="1920", aday="12", amonth="April", ayear="1950", address2="СПб, Лесная ул, 2",
-                       homephone="2233444", notes="уточнить по поводу блинчиков"):
+    def create_contact(self, wd, firstname, middlename, lastname, nickname, company, company_address, home_number,
+                       mobile_number, work_number, fax_number, email, email2, email3, homepage, bday, bmonth, byear,
+                       aday, amonth, ayear, address2, homephone, notes):
         # fill forms
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
@@ -111,7 +111,7 @@ class add_new(unittest.TestCase):
         # open forms page for creating new contact
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def login(self, wd, username="admin", password="secret"):
+    def login(self, wd, username, password):
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
