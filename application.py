@@ -4,14 +4,25 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 class Application:
 
     def __init__(self):
-        self.wd = WebDriver ()
-        self.wd.implicitly_wait (60)
+        self.wd = WebDriver()
+        self.wd.implicitly_wait(60)
 
-   def logout(self):
+    def open_home_page(self):
         wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
+        wd.get("http://localhost/addressbook/")
 
-    def return_to_groups_page(self):
+    def login(self, username, password):
+        wd = self.wd
+        self.open_home_page()
+        wd.find_element_by_name("user").click()
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys(username)
+        wd.find_element_by_name("pass").click()
+        wd.find_element_by_name("pass").clear()
+        wd.find_element_by_name("pass").send_keys(password)
+        wd.find_element_by_xpath("//input[@value='Login']").click()
+
+    def open_groups_page(self):
         wd = self.wd
         wd.find_element_by_link_text("groups").click()
 
@@ -34,25 +45,14 @@ class Application:
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
 
-    def open_groups_page(self):
+    def return_to_groups_page(self):
         wd = self.wd
         wd.find_element_by_link_text("groups").click()
 
-    def login(self, username, password):
+    def logout(self):
         wd = self.wd
-        self.open_home_page()
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
+        wd.find_element_by_link_text("Logout").click()
 
-    def open_home_page(self):
-        wd = self.wd
-        wd.get("http://localhost/addressbook/")
-
-
-    def destroy (self):
-        self.wd.quit ()
+    def destroy(self):
+        # wd = self.wd
+        self.wd.quit()
