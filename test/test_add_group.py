@@ -1,3 +1,4 @@
+# дз 5
 # -*- coding: utf-8 -*-
 import pytest
 from model.group import Group

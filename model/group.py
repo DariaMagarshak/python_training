@@ -1,3 +1,4 @@
+# дз 5
 class Group:
 
     def __init__(self, name, header, footer):
