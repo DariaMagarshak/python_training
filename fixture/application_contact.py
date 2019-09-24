@@ -98,10 +98,11 @@ class ApplicationContact:
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
-        self.submit()
+       # self.submit()
+        self.applying_changes()
         self.return_to_home_page()
 
-    def submit(self):
+    def applying_changes(self):
         wd = self.wd
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
