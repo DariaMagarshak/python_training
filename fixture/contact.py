@@ -94,7 +94,10 @@ class ContactHelper:
         # select first group
         wd.find_element_by_name("selected[]").click()
         # submit deletion
-        wd.find_element_by_name("Delete").click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        #wd.find_element_by_link_text("Delete").click()
+        wd.switch_to_alert().accept()
+
         self.return_to_home_page()
 
     def applying_changes(self):
@@ -104,5 +107,5 @@ class ContactHelper:
 
     def return_to_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
+        wd.find_element_by_link_text("home").click()
 
