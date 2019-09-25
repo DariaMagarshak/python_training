@@ -1,15 +1,8 @@
-# -*- coding: utf-8 -*-
-#from selenium import webdriver
-#import unittest
-import pytest
 from model.contact import Contact
-#from fixture.application_contact import ApplicationContact
-from fixture.application import Application
 
 
-def test_add_new(app):
+def test_add_contact(app):
     app.session.login(username="admin", password="secret")
-    #app.open_edit_page()
     app.contact.create(Contact(firstname="Иван", middlename="Васильевич", lastname="Котейкин", nickname="IVA_cat", company="Производство блинчиков corp",
                                company_address="СПб, Лесная ул, 1", home_number="777-66-55", mobile_number="89218776342", work_number="3356721", fax_number="3356721", email="iva_cat@mail.ru",
                                email2="kot_obormot@yandex.ru", email3="ivan_ivan@gmail.com", homepage="ivan.com", bday="12", bmonth="April", byear="1920", aday="12",

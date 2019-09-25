@@ -26,3 +26,4 @@ class Contact:
         self.homephone = homephone
         self.notes = notes
 
+

@@ -8,9 +8,6 @@ class ContactHelper:
 
     def open_forms_page(self):
         self.app.open_edit_page()
-        #wd = self.app.wd
-        #wd.find_element_by_xpath("//input[@value='Login']").click()
-
 
     def create(self, contact):
         wd = self.app.wd
@@ -76,6 +73,7 @@ class ContactHelper:
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(contact.ayear)
         wd.find_element_by_name("address2").click()
+        # self.submit()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(contact.address2)
         wd.find_element_by_name("phone2").click()
@@ -84,26 +82,22 @@ class ContactHelper:
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
-       # self.submit()
+
         self.applying_changes()
         self.return_to_home_page()
 
     def delete_first_contact(self):
         wd = self.app.wd
-        #self.open_forms_page()
-        # select first group
+        # select first contact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
-        #wd.find_element_by_link_text("Delete").click()
         wd.switch_to_alert().accept()
-
         self.return_to_home_page()
 
     def applying_changes(self):
         wd = self.app.wd
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
-
 
     def return_to_home_page(self):
         wd = self.app.wd
