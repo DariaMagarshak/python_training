@@ -5,7 +5,9 @@ class ContactHelper:
         self.app = app
 
     def open_forms_page(self):
-        self.app.open_edit_page()
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 0):
+            wd.find_element_by_xpath("//a[contains(text(),'add new')]").click()
 
     def create(self, contact):
         wd = self.app.wd
@@ -85,7 +87,7 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
-        self.open_forms_page()
+        self.return_to_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
 

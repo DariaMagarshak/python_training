@@ -1,3 +1,4 @@
+# задание 10
 from model.group import Group
 
 

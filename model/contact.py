@@ -1,3 +1,4 @@
+# задание 10
 class Contact:
     def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, company=None, company_address=None, home_number=None,
                        mobile_number=None, work_number=None, fax_number=None, email=None, email2=None, email3=None, homepage=None, bday=None, bmonth=None, byear=None,
