@@ -5,7 +5,7 @@ from sys import maxsize
 
 def test_add_contact(app):
     old_contacts = app.contact.get_contact_list()
-    contact = Contact(firstname="Иван", middlename="Васильевич", lastname="Иванов", nickname="IVA_cat", company="ООО corp",
+    contact = Contact(firstname="Тест", middlename="1", lastname="Первый", nickname="IVA_cat", company="ООО corp",
                                company_address="СПб, Лесная ул, 1", home_number="777-66-55", mobile_number="89218776342", work_number="3356721", fax_number="3356721", email="iva@mail.ru",
                                email2="iva@yandex.ru", email3="ivan_ivan@gmail.com", homepage="ivan.com", bday="17", bmonth="July", byear="1920", aday="17",
                                amonth="July", ayear="1950", address2="СПб, Лесная ул, 2", homephone="2233444", notes="-")

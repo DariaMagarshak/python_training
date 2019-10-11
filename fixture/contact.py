@@ -1,5 +1,7 @@
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
+
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -8,7 +10,8 @@ class ContactHelper:
     def open_forms_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 0):
-            wd.find_element_by_xpath("//a[contains(text(),'add new')]").click()
+            #wd.find_element_by_xpath("//a[contains(text(),'add new')]").click()
+            self.app.open_edit_page()
 
     def create(self, contact):
         wd = self.app.wd
@@ -16,18 +19,21 @@ class ContactHelper:
         self.fill_form(contact)
 
         self.applying_changes()
-        self.return_to_home_page()
+        self.app.open_home_page()
         self.contact_cache = None
 
-    def modify(self, contact):
+    def modify_contact_by_index(self,  index, new_data):
         wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        self.fill_form(contact)
+        self.fill_form(new_data)
 
         self.update_changes()
-        self.return_to_home_page()
+        self.app.open_home_page()
         self.contact_cache = None
+
+    def modify(self):
+        self.modify_contact_by_index(0)
 
     def fill_form(self, contact):
         wd = self.app.wd
@@ -67,15 +73,22 @@ class ContactHelper:
         if data is not None:
             Select(wd.find_element_by_name(field_name)).select_by_visible_text(data)
 
-    def delete_first_contact(self):
+    def select_contact_by_index(self, index):
         wd = self.app.wd
-        # select first contact
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def delete_contact_by_index(self, index):
+        wd = self.app.wd
+        self.select_contact_by_index(index)
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
-        self.return_to_home_page()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.app.open_home_page()
         self.contact_cache = None
+
+    def delete_first_contact(self):
+        self.delete_contact_by_index(0)
 
     def update_changes(self):
         wd = self.app.wd
@@ -85,22 +98,21 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_name("submit").click()
 
-    def return_to_home_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+   # def return_to_home_page(self):
+      #  wd = self.app.wd
+     #   wd.find_element_by_link_text("home").click()
 
     def count(self):
         wd = self.app.wd
-        self.return_to_home_page()
+        self.app.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
     contact_cache = None
 
-
     def get_contact_list(self):
         if self.contact_cache is None:
             wd = self.app.wd
-            self.return_to_home_page()
+            self.app.open_home_page()
             self.contact_cache = []
             for element in wd.find_elements_by_name("entry"):
                 surname_text = element.find_elements_by_tag_name("td")[1].text
@@ -108,3 +120,4 @@ class ContactHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cache.append(Contact(lastname=surname_text, firstname=name_text, id=id))
         return list(self.contact_cache)
+
