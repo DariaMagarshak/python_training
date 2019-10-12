@@ -1,4 +1,4 @@
-
+# задание 13
 from model.contact import Contact
 from random import randrange
 

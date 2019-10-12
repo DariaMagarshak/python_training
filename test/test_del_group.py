@@ -1,4 +1,4 @@
-# задание 10
+# задание 13
 from model.group import Group
 from random import randrange
 

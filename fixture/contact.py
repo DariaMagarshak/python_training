@@ -1,7 +1,6 @@
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 
-
 class ContactHelper:
 
     def __init__(self, app):
@@ -25,9 +24,9 @@ class ContactHelper:
     def modify_contact_by_index(self,  index, new_data):
         wd = self.app.wd
         self.select_contact_by_index(index)
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        self.fill_form(new_data)
+        wd.find_elements_by_name("entry")[index].find_element_by_xpath(".//img[@alt='Edit']").click()
 
+        self.fill_form(new_data)
         self.update_changes()
         self.app.open_home_page()
         self.contact_cache = None
