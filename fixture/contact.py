@@ -18,7 +18,7 @@ class ContactHelper:
         self.fill_form(contact)
 
         self.applying_changes()
-        self.app.open_home_page()
+        self.return_to_home_page()
         self.contact_cache = None
 
     def modify_contact_by_index(self,  index, new_data):
@@ -28,7 +28,7 @@ class ContactHelper:
 
         self.fill_form(new_data)
         self.update_changes()
-        self.app.open_home_page()
+        self.return_to_home_page()
         self.contact_cache = None
 
     def modify(self):
@@ -83,7 +83,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         wd.find_element_by_css_selector("div.msgbox")
-        self.app.open_home_page()
+        self.return_to_home_page()
         self.contact_cache = None
 
     def delete_first_contact(self):
@@ -97,9 +97,11 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_name("submit").click()
 
-   # def return_to_home_page(self):
-      #  wd = self.app.wd
-     #   wd.find_element_by_link_text("home").click()
+    def return_to_home_page(self):
+        wd = self.app.wd
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_xpath("(//img[@alt='Edit'])")) > 0):
+            wd.find_element_by_link_text("home").click()
+        # self.app.open_home_page()
 
     def count(self):
         wd = self.app.wd
