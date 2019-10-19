@@ -120,11 +120,17 @@ class ContactHelper:
                 cells = element.find_elements_by_tag_name("td")
                 surname_text = cells[1].text
                 name_text = cells[2].text
+                address_text = cells[3].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
-                self.contact_cache.append(Contact(lastname=surname_text, firstname=name_text, id=id,
-                                                  home_number=all_phones[0], mobile_number=all_phones[1],
-                                                  work_number=all_phones[2], homephone=all_phones[3]))
+                #нарезка
+                all_emails = cells[4].text
+                all_phones = cells[5].text
+                #all_phones = cells[5].text.splitlines()
+                self.contact_cache.append(Contact(lastname=surname_text, firstname=name_text, company_address = address_text,
+                                                  id=id, all_emails_from_home_page = all_emails,
+                                                  all_phones_from_home_page = all_phones))
+                                                 # home_number=all_phones[0], mobile_number=all_phones[1],
+                                                  #work_number=all_phones[2], homephone=all_phones[3]))
         return list(self.contact_cache)
 
 
@@ -148,15 +154,22 @@ class ContactHelper:
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
+        company_address = wd.find_element_by_name("address").get_attribute("value")
 
         home_number = wd.find_element_by_name("home").get_attribute("value")
         work_number = wd.find_element_by_name("work").get_attribute("value")
         mobile_number = wd.find_element_by_name("mobile").get_attribute("value")
         homephone = wd.find_element_by_name("phone2").get_attribute("value")
 
-        return Contact(firstname=firstname, lastname=lastname, id=id,
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
+
+
+
+        return Contact(firstname=firstname, lastname=lastname, id=id, company_address=company_address,
                         home_number=home_number, work_number=work_number,
-                        mobile_number=mobile_number, homephone=homephone)
+                        mobile_number=mobile_number, homephone=homephone, email= email, email2=email2, email3=email3)
 
 
     def get_contact_from_view_page(self, index):
@@ -167,6 +180,16 @@ class ContactHelper:
         work_number = re.search("W: (.*)", text).group(1)
         mobile_number = re.search("M: (.*)", text).group(1)
         homephone = re.search("P: (.*)", text).group(1)
+
+
+        #text_cells = text.split("\n")
+
+        #l_start_index = text_cells.index("F:")
+        #l_end_index = text_cells.index("Homepage:")
+        #all_emails = text[l_start_index+1:l_end_index-1]
+        #email = all_emails[0]
+        #email2 = all_emails[1]
+        #email3 = all_emails[2]
 
         return Contact(home_number=home_number, work_number=work_number,
                         mobile_number=mobile_number, homephone=homephone)
