@@ -99,14 +99,14 @@ class ContactHelper:
         wd.find_element_by_name("submit").click()
 
     def return_to_home_page(self):
-        wd = self.app.wd
-        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_xpath("(//img[@alt='Edit'])")) > 0):
-            wd.find_element_by_link_text("home").click()
-        # self.app.open_home_page()
+         # self.app.open_home_page()
+         wd = self.app.wd
+         wd.find_element_by_link_text("home").click()
 
     def count(self):
         wd = self.app.wd
-        self.app.open_home_page()
+        #self.app.open_home_page()
+        self.return_to_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
     contact_cache = None
@@ -114,7 +114,8 @@ class ContactHelper:
     def get_contact_list(self):
         if self.contact_cache is None:
             wd = self.app.wd
-            self.app.open_home_page()
+            #self.app.open_home_page()
+            self.return_to_home_page()
             self.contact_cache = []
             for element in wd.find_elements_by_name("entry"):
                 cells = element.find_elements_by_tag_name("td")
@@ -136,14 +137,16 @@ class ContactHelper:
 
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
-        self.app.open_home_page()
+        #self.app.open_home_page()
+        self.return_to_home_page()
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name('td')[7]
         cell.find_element_by_tag_name('a').click()
 
     def open_contact_view_by_index(self, index):
         wd = self.app.wd
-        self.app.open_home_page()
+        #self.app.open_home_page()
+        self.return_to_home_page()
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name('td')[6]
         cell.find_element_by_tag_name('a').click()

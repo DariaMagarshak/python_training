@@ -32,7 +32,9 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        wd.get(self.base_url)
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_xpath("(//img[@alt='Edit'])")) > 0):
+            wd.get(self.base_url)
+
 
     def open_edit_page(self):
         wd = self.wd
