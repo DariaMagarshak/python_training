@@ -11,13 +11,29 @@ def random_string(prefix, maxlen):
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-random_month1 = random.choice(calendar.month_name)
-random_month2 = random.choice(calendar.month_name)
-data = list(range(1, 32))
-random_data1 = random.choice(data)
-random_data2 = random.choice(data)
-random_year1 = [random.choice(string.digits) for i in range(4)]
-random_year2 = [random.choice(string.digits) for i in range(4)]
+#def random_date(year, month, date):
+   # random_year = [random.choice(string.digits) for i in range(4)]
+    #random_year2 = [random.choice(string.digits) for i in range(4)]
+   # if random_year != "":
+    #    random_month = random.choice(calendar.month_name)
+    #    #random_month2 = random.choice(calendar.month_name)
+   # #date = list(range(1, 32))
+   # #random_data1 = random.choice(data)
+    #    random_date = random.choice(list(range(1, 32)))
+   # else:
+    #    random_month = '-'
+     #   random_date = '-'
+   # return (year=random_year, month=random_month, date = random_date)
+
+#def random_date1():
+ #   random_year = [random.choice(string.digits) for i in range(4)]
+  #  if random_year != "":
+   #     random_month = random.choice(calendar.month_name)
+   #     random_date = random.choice(list(range(1, 32)))
+   # else:
+    #    random_month = '-'
+    #    random_date = '-'
+   # return ()
 
 
 testdata = [Contact(firstname="", middlename="", lastname="", nickname="", company="",
@@ -29,9 +45,10 @@ testdata = [Contact(firstname="", middlename="", lastname="", nickname="", compa
                                company_address=random_string("company_address", 10), home_number=random_string("home_number", 10),
                                mobile_number=random_string("mobile_number", 10), work_number=random_string("work_number", 10), fax_number=random_string("fax_number", 10),
                                email=random_string("email", 10), email2=random_string("email2", 10), email3=random_string("email3", 10), homepage=random_string("homepage", 10),
-                               bday=str(random_data1), bmonth=random_month1, byear=random_year1, aday=str(random_data2), amonth=random_month2, ayear=random_year2, address2=random_string("address2", 10),
+                               bday=str(random.choice(list(range(1, 32)))), bmonth=random.choice(calendar.month_name), byear=[random.choice(string.digits) for i in range(4)], aday=random.choice(list(range(1, 32))),
+                               amonth=random.choice(calendar.month_name), ayear=[random.choice(string.digits) for i in range(4)], address2=random_string("address2", 10),
                                homephone=random_string("homephone", 10), notes=random_string("notes", 10))
-    for i in range(5)
+    for i in range(3)
 ]
 
 @pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
