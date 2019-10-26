@@ -1,3 +1,4 @@
+# задание 14
 import re
 from random import randrange
 

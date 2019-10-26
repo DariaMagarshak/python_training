@@ -1,6 +1,9 @@
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 import re
+import random
+import string
+import calendar
 
 class ContactHelper:
 
@@ -198,3 +201,7 @@ class ContactHelper:
 
         return Contact(home_number=home_number, work_number=work_number,
                         mobile_number=mobile_number, homephone=homephone)
+
+
+
+
