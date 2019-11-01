@@ -1,4 +1,4 @@
-#задание 10 попытка 8
+#задание 10 попытка8
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 import re
