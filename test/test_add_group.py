@@ -1,17 +1,9 @@
 # задание 13
 from model.group import Group
-import pytest
-import random
-import string
+#import pytest
+#from data.groups import testdata as testdata
 
-def random_string(prefix, maxlen):
-    symbols = string.ascii_letters+string.digits +""*10
-    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
-testdata = [Group(name="", header="", footer="")] + [
-    Group(name=random_string("name", 10), header=random_string("header", 20), footer=random_string("footer", 20))
-    for i in range(5)
-]
 
 #testdata = [
    # Group(name=name, header=header, footer=footer)
@@ -20,9 +12,10 @@ testdata = [Group(name="", header="", footer="")] + [
    # for footer in ["", random_string("footer", 20)]
 #]
 
-@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
-def test_add_group(app, group):
-    pass
+#@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
+def test_add_group(app, data_groups):
+    #для того, чтобы можно было продолжать работать с переменной group
+    group = data_groups
     old_groups = app.group.get_group_list()
     #group = Group(name="sss", header="ssss", footer="sssddd")
     app.group.create(group)

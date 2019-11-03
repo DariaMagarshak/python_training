@@ -45,7 +45,10 @@ random_month1 = random.choice(calendar.month_name)
 random_month2 = random.choice(calendar.month_name)
 
 
-testdata = [
+testdata = [Contact(firstname="", middlename="", lastname="", nickname="", company="",
+                               company_address="", home_number="", mobile_number="", work_number="", fax_number="", email="",
+                               email2="", email3="", homepage="", bday="-", bmonth="-", byear="", aday="-",
+                               amonth="-", ayear="", address2="", homephone="", notes="")] + [
     Contact(firstname=random_string("firstname", 10), middlename=random_string("middlename", 10), lastname=random_string("lastname", 10),
                                nickname=random_string("nickname", 10), company=random_string("company", 10),
                                company_address=random_string("company_address", 10), home_number=random_string("home_number", 10),
@@ -54,11 +57,13 @@ testdata = [
                                bday=random_day1, bmonth=random_month1, byear=random_year1, aday=random_day2,
                                amonth=random_month1, ayear=random_year2, address2=random_string("address2", 10),
                                homephone=random_string("homephone", 10), notes=random_string("notes", 10))
-    for i in range(5)
+    for i in range(1)
 ]
 
-@pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
-def test_add_contact(app, contact):
+#@pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
+
+def test_add_contact(app, data_contacts):
+    contact = data_contacts
     old_contacts = app.contact.get_contact_list()
     app.contact.create(contact)
     assert len(old_contacts) + 1 == app.contact.count()
