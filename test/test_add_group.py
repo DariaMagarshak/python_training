@@ -13,9 +13,9 @@ from model.group import Group
 #]
 
 #@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
-def test_add_group(app, data_groups):
+def test_add_group(app, json_groups):
     #для того, чтобы можно было продолжать работать с переменной group
-    group = data_groups
+    group = json_groups
     old_groups = app.group.get_group_list()
     #group = Group(name="sss", header="ssss", footer="sssddd")
     app.group.create(group)
