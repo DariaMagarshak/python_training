@@ -1,8 +1,16 @@
 {
-  "browser": "firefox",
-  "baseUrl": "http://localhost/addressbook/",
-  "editPage": "http://localhost/addressbook/edit.php",
-  "username": "admin",
-  "password": "secret"
+  "web": {
+    "browser": "firefox",
+    "baseUrl": "http://localhost/addressbook/",
+    "username": "admin",
+    "password": "secret"
+  },
+  "db": {
+    "host": "localhost",
+    "name": "addressbook",
+    "user": "root",
+    "password": ""
+  }
+
 
 }

@@ -189,18 +189,37 @@ class ContactHelper:
         homephone = re.search("P: (.*)", text).group(1)
 
 
-        #text_cells = text.split("\n")
-
-        #l_start_index = text_cells.index("F:")
-        #l_end_index = text_cells.index("Homepage:")
-        #all_emails = text[l_start_index+1:l_end_index-1]
-        #email = all_emails[0]
-        #email2 = all_emails[1]
-        #email3 = all_emails[2]
-
         return Contact(home_number=home_number, work_number=work_number,
                         mobile_number=mobile_number, homephone=homephone)
 
 
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.group_cache = None
 
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" %id).click()
+
+
+
+    def modify_contact_by_id(self, id, new_data):
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        # open modification form
+        wd.find_element_by_xpath("//a[@href='edit.php?id=%s']"%id).click()
+        #find_element_by_xpath(".//img[@alt='Edit']").click()
+        self.fill_form(new_data)
+        self.update_changes()
+        self.return_to_home_page()
+        self.contact_cache = None
+
+
+
+#id = element.find_element_by_name("selected[]").get_attribute("value")
