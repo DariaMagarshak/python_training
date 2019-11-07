@@ -139,6 +139,9 @@ class ContactHelper:
         return list(self.contact_cache)
 
 
+
+
+
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()

@@ -3,7 +3,7 @@ from model.group import Group
 from random import randrange
 import random
 
-def test_modify_some_group(app, db):
+def test_modify_some_group(app, db, check_ui):
     if len(db.get_group_list()) == 0:
         app.group.create(Group(name="test"))
     old_groups = db.get_group_list()

@@ -1,7 +1,19 @@
 # задание 14
 import re
 from random import randrange
+from model.contact import Contact
 
+
+def test_match_contact(app, db):
+    contacts_from_home_page = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+    contacts_from_db = sorted(db.get_contact_list(), key=Contact.id_or_max)
+
+    for index in range(len(contacts_from_home_page)):
+        assert contacts_from_home_page[index].all_phones_from_home_page == merge_phones_like_on_home_page(contacts_from_db[index])
+        assert contacts_from_home_page[index].all_emails_from_home_page == merge_emails_like_on_home_page(contacts_from_db[index])
+        assert contacts_from_home_page[index].lastname == contacts_from_db[index].lastname
+        assert contacts_from_home_page[index].firstname == contacts_from_db[index].firstname
+        assert contacts_from_home_page[index].company_address == contacts_from_db[index].company_address
 
 
 def test_assert_contact_info(app):
@@ -25,6 +37,7 @@ def merge_phones_like_on_home_page(contact):
                      map(lambda x: clear(x),
                          filter(lambda x: x is not None,
                                 [contact.home_number, contact.mobile_number, contact.work_number, contact.homephone]))))
+
 
 
 
