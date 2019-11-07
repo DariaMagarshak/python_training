@@ -44,7 +44,7 @@ class ORMFixture:
         homephone = Optional(str, column='phone2')
         notes = Optional(str, column='notes')
         deprecated = Optional(datetime, column='deprecated')
-        contacts = Set(lambda: ORMFixture.ORMGroup, table = 'address_in_groups', column = 'group_id', reverse = 'contacts', lazy = True)
+        groups = Set(lambda: ORMFixture.ORMGroup, table = 'address_in_groups', column = 'group_id', reverse = 'contacts', lazy = True)
 
     def __init__(self, host, name, user, password):
         self.db.bind('mysql',host=host, database=name, user=user, password=password, autocommit=True)
@@ -81,3 +81,10 @@ class ORMFixture:
         orm_group = list(select (g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
         return self.convert_contacts_to_model(
             select(c for c in ORMFixture.ORMContact if c.deprecated is None and orm_group not in c.groups))
+
+
+    @db_session
+    def get_contacts_in_group(self, group):
+        orm_group = list(select (g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
+        return self.convert_contacts_to_model(orm_group.contacts)
+

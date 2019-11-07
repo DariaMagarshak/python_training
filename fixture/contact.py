@@ -1,6 +1,7 @@
 #задание 10 попытка8
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
+from model.group import Group
 import re
 import random
 import string
@@ -223,6 +224,27 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
+    def add_contact_to_group(self, index_c, group):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact_by_index(index_c)
+        self.select_data("to_group", group.name)
+        wd.find_element_by_name("add").click()
+        wd.find_element_by_link_text('group page "%s"'%group.name)
+        #wd.find_element_by_xpath("//a[@href='edit.php?id=%s']"%id).click()
+
+    id_cache = None
+
+    def get_id_contact_list(self,group):
+        if self.id_cache is None:
+            wd = self.app.wd
+            self.app.open_home_page()
+            self.select_data("group", group.name)
+
+            self.id_cache = []
+            for element in wd.find_elements_by_name("entry"):
+                id = element.find_element_by_name("selected[]").get_attribute("value")
 
 
-#id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.id_cache.append(Contact(id=id))
+        return list(self.id_cache)
