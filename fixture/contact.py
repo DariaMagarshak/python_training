@@ -143,6 +143,8 @@ class ContactHelper:
 
 
 
+
+
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
@@ -233,18 +235,38 @@ class ContactHelper:
         wd.find_element_by_link_text('group page "%s"'%group.name)
         #wd.find_element_by_xpath("//a[@href='edit.php?id=%s']"%id).click()
 
-    id_cache = None
+    def del_contact_from_group(self, index_c, group):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_data("group", group.name)
+        wd.find_elements_by_name("selected[]")[index_c].click()
+        #self.select_contact_by_index(index_c)
+        wd.find_element_by_name("remove").click()
+        wd.find_element_by_link_text('group page "%s"'%group.name)
+        #wd.find_element_by_xpath("//a[@href='edit.php?id=%s']"%id).click()
 
-    def get_id_contact_list(self,group):
-        if self.id_cache is None:
+
+
+    def get_contact_list_from_group(self, group):
+        if self.contact_cache is None:
             wd = self.app.wd
             self.app.open_home_page()
-            self.select_data("group", group.name)
+            self.select_data("to_group", group.name)
 
-            self.id_cache = []
+            self.contact_cache = []
             for element in wd.find_elements_by_name("entry"):
+                cells = element.find_elements_by_tag_name("td")
+                surname_text = cells[1].text
+                name_text = cells[2].text
+                address_text = cells[3].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-
-
-                self.id_cache.append(Contact(id=id))
-        return list(self.id_cache)
+                #нарезка
+                all_emails = cells[4].text
+                all_phones = cells[5].text
+                #all_phones = cells[5].text.splitlines()
+                self.contact_cache.append(Contact(lastname=surname_text, firstname=name_text, company_address = address_text,
+                                                  id=id, all_emails_from_home_page = all_emails,
+                                                  all_phones_from_home_page = all_phones))
+                                                 # home_number=all_phones[0], mobile_number=all_phones[1],
+                                                  #work_number=all_phones[2], homephone=all_phones[3]))
+        return list(self.contact_cache)

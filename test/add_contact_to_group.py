@@ -6,6 +6,8 @@ from fixture.orm import ORMFixture
 def test_add_contact_to_group(app, orm):
     if len(orm.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="test"))
+    elif len(orm.get_group_list()) == 0:
+        app.group.create(Group(name="test"))
     index_c = randrange(len(app.contact.get_contact_list()))
     index_g = randrange(len(app.group.get_group_list()))
 
