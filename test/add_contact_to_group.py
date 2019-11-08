@@ -3,8 +3,7 @@ from model.group import Group
 from random import randrange
 from fixture.orm import ORMFixture
 
-def test_add_contact_to_group(app, db):
-    d_b = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
+def test_add_contact_to_group(app, db, orm):
     if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="test"))
     index_c = randrange(len(app.contact.get_contact_list()))
@@ -13,8 +12,9 @@ def test_add_contact_to_group(app, db):
     random_group = app.group.get_group_list()[index_g]
     app.contact.add_contact_to_group(index_c, random_group)
     id_group = random_group.id
-    old_group_with_contacts = d_b.get_contacts_in_group(Group(id="%s")%id_group)
-    print(old_group_with_contacts)
+    old_group_with_contacts = orm.get_contacts_in_group(Group("%s"%id_group))
+    print (old_group_with_contacts)
+
 
 
 

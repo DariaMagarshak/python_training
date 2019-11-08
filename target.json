@@ -10,6 +10,14 @@
     "name": "addressbook",
     "user": "root",
     "password": ""
+  },
+  "orm": {
+    "host":"127.0.0.1",
+    "name":"addressbook",
+    "user":"root",
+    "password":""
+
+
   }
 
 
