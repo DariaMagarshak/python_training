@@ -4,15 +4,17 @@ from random import randrange
 from fixture.orm import ORMFixture
 
 def test_del_contact_from_group(app, orm):
-
+    some_group = app.group.get_group_list()[0]
     if len(orm.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="test"))
 
     elif len(orm.get_group_list()) == 0:
         app.group.create(Group(name="test"))
 
-    #if len(orm.get_contacts_in_group(Group[0])) == 0:
-       # app.contact.add_contact_to_group(0, orm.get_group_list()[0].id)
+    elif len(orm.get_contacts_in_group(some_group)) == 0:
+        index_c = randrange(len(app.contact.get_contact_list()))
+        random_contact = app.contact.get_contact_list()[index_c]
+        app.contact.add_contact_to_group(0, Group(id="%s" % random_contact.id))
 
     index_g = randrange(len(app.group.get_group_list()))
     random_group = app.group.get_group_list()[index_g]
@@ -35,4 +37,4 @@ def test_del_contact_from_group(app, orm):
 
     # сравниваем старый и новый списки
 
-   # assert sorted(old_info, key=Contact.id_or_max) == sorted(new_info, key=Contact.id_or_max)
+    assert sorted(old_info, key=Contact.id_or_max) == sorted(new_info, key=Contact.id_or_max)

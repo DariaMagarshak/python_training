@@ -35,17 +35,3 @@ def test_add_contact_to_group(app, orm):
 
 
 
-
-
-
-
-    #assert sorted(ORMFixture.get_contacts_in_group(Group(id="id_group")), key=Contact.id_or_max) == sorted(app.contact.get_id_contact_list(), key=Contact.id_or_max)
-    #assert random_contact_id ==
-
-    #l= d_b.get_contacts_in_group(Group(id="247"))
-
-
-
-    #for item in l:
-        #assert sorted(item[???], key=Contact.id_or_max) == sorted(
-            ##app.contact.get_id_contact_list(), key=Contact.id_or_max)

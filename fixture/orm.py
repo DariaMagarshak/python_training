@@ -93,8 +93,4 @@ class ORMFixture:
         return self.convert_contacts_to_model(orm_group.contacts)
 
 
-    #@db_session
-    #def get_contact_info(self, contact):
-       # orm_contact = list(select (c for c in ORMFixture.ORMContact if c.id == contact.id))[0]
-        #return self.convert_contacts_to_model(orm_contact.groups)
 

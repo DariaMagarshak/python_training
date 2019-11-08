@@ -1,4 +1,4 @@
-#задание 10 попытка8
+#задание 22
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 from model.group import Group
