@@ -246,7 +246,6 @@ class ContactHelper:
         #wd.find_element_by_xpath("//a[@href='edit.php?id=%s']"%id).click()
 
 
-
     def get_contact_list_from_group(self, group):
         if self.contact_cache is None:
             wd = self.app.wd
