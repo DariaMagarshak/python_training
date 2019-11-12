@@ -226,10 +226,11 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
-    def add_contact_to_group(self, index_c, group):
+    def add_contact_to_group(self, contact_id, group):
         wd = self.app.wd
         self.app.open_home_page()
-        self.select_contact_by_index(index_c)
+        #self.select_contact_by_index(index_c)
+        self.select_contact_by_id(contact_id)
         self.select_data("to_group", group.name)
         wd.find_element_by_name("add").click()
         wd.find_element_by_link_text('group page "%s"'%group.name)

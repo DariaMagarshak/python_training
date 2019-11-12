@@ -7,12 +7,12 @@ from model.contact import Contact
 db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 
 try:
-    #l = db.get_contacts_in_group(Group(id="247"))
-    #for item in l:
-      #  print(item)
-    #print(len(l))
-    l = db.get_contact_info(Contact(id="222"))
-    print(l)
+    l = db.get_contacts_not_in_group(Group(id="257"))
+    for item in l:
+        print("ITEM = ",item)
+    print(len(l))
+   # l = db.get_contact_info(Contact(id="222"))
+   # print(l)
 
 
 finally:
