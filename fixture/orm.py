@@ -74,19 +74,6 @@ class ORMFixture:
         #with db_session:
         return self.convert_contacts_to_model(select(c for c in ORMFixture.ORMContact if c.deprecated is None))
 
-    @db_session
-    def get_contact_info(self, contact):
-        orm_contact = list(select (c for c in ORMFixture.ORMContact if c.id == contact.id))[0]
-        return self.convert_groups_to_model(orm_contact.groups)
-
-    def contact_get_group_id(self):
-        for c in ORMFixture.ORMContact:
-            if c.groups is None:
-                return False
-
-            self.get_contact_list()
-
-
 
     @db_session
     def get_contacts_not_in_group(self, group):
