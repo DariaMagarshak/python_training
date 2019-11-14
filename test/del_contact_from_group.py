@@ -1,4 +1,4 @@
-
+# задание 22
 from model.contact import Contact
 from model.group import Group
 import random

@@ -236,11 +236,11 @@ class ContactHelper:
         wd.find_element_by_link_text('group page "%s"'%group.name)
         #wd.find_element_by_xpath("//a[@href='edit.php?id=%s']"%id).click()
 
-    def del_contact_from_group(self, index_c, group):
+    def del_contact_from_group(self, contact_id, group):
         wd = self.app.wd
         self.app.open_home_page()
         self.select_data("group", group.name)
-        self.select_contact_by_index(index_c).click()
+        self.select_contact_by_id(contact_id)
         #self.select_contact_by_index(index_c)
         wd.find_element_by_name("remove").click()
         wd.find_element_by_link_text('group page "%s"'%group.name)
