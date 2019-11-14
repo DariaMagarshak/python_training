@@ -20,33 +20,21 @@ def test_add_contact_to_group(app, orm):
         # проверяем, список контактов, которые не привязаны к текущей группе
         contact_not_in_group = list(orm.get_contacts_not_in_group(Group(id="%s" % gr_id)))
 
-        # если это не последняя группа в цикле
-        if gr_indx != -1:
-            # если есть контакты, которые еще не привязаны к группе (список не пустой)
-            if contact_not_in_group != []:
-                c_id = contact_not_in_group[0].id
-                adding_contact = contact_not_in_group[0]
-                # выходим из цикла
-                break
+        # если есть контакты, которые еще не привязаны к группе (список не пустой)
+        if contact_not_in_group != []:
+            c_id = contact_not_in_group[0].id
+            adding_contact = contact_not_in_group[0]
+            # выходим из цикла
+            break
 
-
-        # если это последняя группа в цикле
+        # если все имеющиеся контакты уже привязаны к группе (список пустой)
         else:
-            # если есть контакты, которые еще не привязаны к группе (список не пустой)
-            if contact_not_in_group != []:
-                c_id = contact_not_in_group[0].id
-                adding_contact = contact_not_in_group[0]
-                # выходим из цикла
-                break
-            # если все имеющиеся контакты уже привязаны к группе (список пустой)
-            else:
-                # создаем новый контакт
-                app.contact.create(Contact(firstname="New contact3"))
-                c_id = app.contact.get_contact_list()[-1].id
-                adding_contact = orm.get_contact_list()[-1]
-                # выходим из цикла
-                break
-
+            # создаем новый контакт
+            app.contact.create(Contact(firstname="New contact3"))
+            c_id = app.contact.get_contact_list()[-1].id
+            adding_contact = orm.get_contact_list()[-1]
+            # выходим из цикла
+            break
 
 # получаем начальный список контактов, привязанных к текущей группе
     old_info = orm.get_contacts_in_group(Group(id="%s" % gr_id))
