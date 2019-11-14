@@ -1,3 +1,4 @@
+
 from model.contact import Contact
 from model.group import Group
 import random
@@ -32,7 +33,7 @@ def test_add_contact_to_group(app, orm):
             # создаем новый контакт
             app.contact.create(Contact(firstname="New contact3"))
             c_id = app.contact.get_contact_list()[-1].id
-            adding_contact = orm.get_contact_list()[-1]
+            adding_contact = sorted (orm.get_contact_list(), key=Contact.id_or_max)[-1]
             # выходим из цикла
             break
 
