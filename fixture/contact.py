@@ -240,7 +240,7 @@ class ContactHelper:
         wd = self.app.wd
         self.app.open_home_page()
         self.select_data("group", group.name)
-        wd.find_elements_by_name("selected[]")[index_c].click()
+        self.select_contact_by_index(index_c).click()
         #self.select_contact_by_index(index_c)
         wd.find_element_by_name("remove").click()
         wd.find_element_by_link_text('group page "%s"'%group.name)
