@@ -26,6 +26,8 @@ def test_add_contact_to_group(app, orm):
             if contact_not_in_group != []:
                 c_id = contact_not_in_group[0].id
                 adding_contact = contact_not_in_group[0]
+                # выходим из цикла
+                break
 
 
         # если это последняя группа в цикле
@@ -34,13 +36,16 @@ def test_add_contact_to_group(app, orm):
             if contact_not_in_group != []:
                 c_id = contact_not_in_group[0].id
                 adding_contact = contact_not_in_group[0]
+                # выходим из цикла
+                break
             # если все имеющиеся контакты уже привязаны к группе (список пустой)
             else:
                 # создаем новый контакт
                 app.contact.create(Contact(firstname="New contact3"))
                 c_id = app.contact.get_contact_list()[-1].id
                 adding_contact = orm.get_contact_list()[-1]
-                #gr_id = str(random.choice(orm.get_contact_list()).id)
+                # выходим из цикла
+                break
 
 
 # получаем начальный список контактов, привязанных к текущей группе
